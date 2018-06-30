@@ -7,17 +7,13 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.yamibo.bbs.group3_skytrain_project.R;
 import com.yamibo.bbs.group3_skytrain_project.adapter.CardAdapter;
-import com.yamibo.bbs.group3_skytrain_project.models.JSONResponse;
 import com.yamibo.bbs.group3_skytrain_project.models.Stop;
-import com.yamibo.bbs.group3_skytrain_project.service.ServiceFactory;
 import com.yamibo.bbs.group3_skytrain_project.service.TransLinkService;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NearbyActivity extends AppCompatActivity {
 
     private Button btn_test;
-    private ArrayList<Stop> data;
+    private List<Stop> data;
     private RecyclerView mRecyclerView;
     private CardAdapter mCardAdapter;
 
@@ -46,34 +42,31 @@ public class NearbyActivity extends AppCompatActivity {
         btn_test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://api.translink.ca")
+                        .baseUrl("http://api.translink.ca/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
-                TransLinkService service = retrofit.create(TransLinkService.class);
-                Call<JSONResponse> call = service.getStop("fH8nhLCTC142J3YXmtLC",49.226258,-123.000436 );
-                call.enqueue(new Callback<JSONResponse>() {
-                    @Override
-                    public void onResponse(Call<JSONResponse> call, Response<JSONResponse> response) {
-                      /*  JSONResponse jsonResponse = response.body();
-                        data = new ArrayList<>(Arrays.asList(jsonResponse.getStops()));
-                        mCardAdapter = new CardAdapter(data);
-                        mRecyclerView.setAdapter(mCardAdapter); */
-                        Toast.makeText(getApplicationContext(), "OnResponse", Toast.LENGTH_SHORT).show();
 
-                        
+                TransLinkService service = retrofit.create(TransLinkService.class);
+                //TODO: Add dynemic upload of current location
+                Call<List<Stop>> call = service.getStop("fH8nhLCTC142J3YXmtLC",49.226258,-123.000436);
+                call.enqueue(new Callback<List<Stop>>() {
+                    @Override
+                    public void onResponse(Call<List<Stop>> call, Response<List<Stop>> response) {
+                        data = response.body();
+                        mCardAdapter = new CardAdapter(data);
+                        mRecyclerView.setAdapter(mCardAdapter);
+                        Log.d("OnResponse", "hi");
                     }
 
                     @Override
-                    public void onFailure(Call<JSONResponse> call, Throwable t) {
+                    public void onFailure(Call<List<Stop>> call, Throwable t) {
                         Log.d("Error",t.getMessage());
                     }
                 });
+
             }
         });
-
-
-
-
     }
 }

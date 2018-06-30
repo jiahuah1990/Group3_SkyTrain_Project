@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
-    List<Stop> mItems;
-    public CardAdapter(ArrayList<Stop> mItems) {
+    List<Stop> mItems = new ArrayList<>();
+    public CardAdapter(List<Stop> mItems) {
         this.mItems = mItems;
     }
 
@@ -42,7 +42,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         Stop stop = mItems.get(position);
         String stopName = stop.getOnStreet()+" FS " + stop.getOnStreet();
         holder.stop_name.setText(stopName);
-        holder.dist.setText(stop.getDistance());
+        holder.dist.setText(""+stop.getDistance());
         holder.routes.setText(stop.getRoutes());
     }
 
