@@ -1,4 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".activities.NearbyActivity">
+
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <include layout="@layout/stops_list" />
+    </FrameLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>
+<!--<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,15 +28,9 @@
     tools:context=".activities.NearbyActivity">
 
 
-    <Button
-        android:id="@+id/btn_test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button" />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:paddingTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-</LinearLayout>
+</LinearLayout> -->
