@@ -29,10 +29,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.NearbyActivity" />
         <activity android:name=".activities.StopDetailActivity"></activity>
-      <!--  <meta-data
+       <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCK8NQQ8XlPnc5oxfML2vvSlpzrbJUjZqA"
-            /> -->
+            />
     </application>
 
 </manifest>

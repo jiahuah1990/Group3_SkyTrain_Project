@@ -10,6 +10,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.yamibo.bbs.group3_skytrain_project.R;
 import com.yamibo.bbs.group3_skytrain_project.adapter.CardAdapter;
 import com.yamibo.bbs.group3_skytrain_project.map.MapFragment;
@@ -30,6 +36,7 @@ public class NearbyActivity extends AppCompatActivity {
     private List<Stop> data;
     private RecyclerView mRecyclerView;
     private CardAdapter mCardAdapter;
+    private GoogleMap mMap;
     private boolean mTwoPane = false;
     Location mCurrentLocation;
     private long UPDATE_INTERVAL = 60000;  /* 60 secs */
@@ -50,6 +57,9 @@ public class NearbyActivity extends AppCompatActivity {
         loadNearbyStops();
 
 
+
+
+
      /*    if(findViewById(R.id.stop_map_container) != null){
             mTwoPane = true;
 
@@ -63,6 +73,8 @@ public class NearbyActivity extends AppCompatActivity {
 */
 
     }
+
+
 
 
 
@@ -85,7 +97,8 @@ public class NearbyActivity extends AppCompatActivity {
                 data = response.body();
                 mCardAdapter = new CardAdapter(data);
                 mRecyclerView.setAdapter(mCardAdapter);
-                Log.d("OnResponse", "hi");
+                loadMap(data);
+
             }
 
             @Override
@@ -93,5 +106,28 @@ public class NearbyActivity extends AppCompatActivity {
                 Log.d("Error",t.getMessage());
             }
         });
+    }
+
+    public void loadMap(final List<Stop> stopData){
+        if(findViewById(R.id.map) != null)
+        {
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.map);
+            mapFragment.getMapAsync(new OnMapReadyCallback() {
+                @Override
+                public void onMapReady(GoogleMap googleMap) {
+                    mMap = googleMap;
+                    for(Stop stop : stopData)
+                    {
+                        mMap.addMarker(new MarkerOptions().position(new LatLng(stop.getLat(), stop.getLongt())).title(""+stop.getStopNo()));
+                    }
+/*
+                    // Add a marker in Sydney, Australia, and move the camera.
+                    LatLng sydney = new LatLng(-34, 151);
+                    mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney)); */
+                }
+            });
+        }
     }
 }
