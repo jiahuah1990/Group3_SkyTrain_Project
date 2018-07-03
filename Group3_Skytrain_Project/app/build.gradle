@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -37,10 +36,15 @@ android {
         compile 'com.squareup.retrofit2:retrofit:2.1.0'
         compile 'com.squareup.retrofit2:converter-gson:2.1.0'
 
-
-     // to remove lint error, found in .idea/libraries
+        // to remove lint error, found in .idea/libraries
         implementation "com.google.android.gms:play-services-maps:$googlePlayVersion"
         implementation "com.google.android.gms:play-services-location:$googlePlayVersion"
 
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+dependencies {
 }

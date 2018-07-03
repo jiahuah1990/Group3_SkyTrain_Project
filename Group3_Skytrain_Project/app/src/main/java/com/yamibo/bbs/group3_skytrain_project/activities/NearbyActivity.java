@@ -1,27 +1,38 @@
 package com.yamibo.bbs.group3_skytrain_project.activities;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.location.Location;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.yamibo.bbs.group3_skytrain_project.R;
 import com.yamibo.bbs.group3_skytrain_project.adapter.CardAdapter;
-import com.yamibo.bbs.group3_skytrain_project.map.MapFragment;
 import com.yamibo.bbs.group3_skytrain_project.models.Stop;
 import com.yamibo.bbs.group3_skytrain_project.service.TransLinkService;
 
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -29,59 +40,51 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.subjects.PublishSubject;
+
 
 public class NearbyActivity extends AppCompatActivity {
 
-    private Button btn_test;
     private List<Stop> data;
     private RecyclerView mRecyclerView;
     private CardAdapter mCardAdapter;
     private GoogleMap mMap;
-    private boolean mTwoPane = false;
-    Location mCurrentLocation;
-    private long UPDATE_INTERVAL = 60000;  /* 60 secs */
-    private long FASTEST_INTERVAL = 5000; /* 5 secs */
+    private Marker selMarker;
+    private LinearLayoutManager layoutManager;
 
-    private final static String KEY_LOCATION = "location";
+    private HashMap<Marker, Stop> hashMap;
 
-    /*
-     * Define a request code to send to Google Play services This code is
-     * returned in Activity.onActivityResult
-     */
-    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+
+    public static final int REQ_PERMISSION = 99;
+
+    public static LatLng currentLatLtng =new LatLng(49.265987, -123.115468);
+
+    PublishSubject<LatLng> mObservable = PublishSubject.create();
+    private boolean check = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nearby);
 
-        loadNearbyStops();
+        mObservable.map(value -> {
+            Log.d("test", "loadNearbyStops: ");
+            loadNearbyStops(value);
+            loadMap(value);
 
+            return String.valueOf(value);
+        }).subscribe(string -> System.out.println(string));
 
-
-
-
-     /*    if(findViewById(R.id.stop_map_container) != null){
-            mTwoPane = true;
-
-
-           MapFragment mapFragment = MapFragment.newInstance();
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.stop_map_container, mapFragment)
-                    .addToBackStack(null)
-                    .commit();
-        }
-*/
-
+        updateLocation();
     }
 
 
+   public void loadNearbyStops(LatLng latLng) {
 
-
-
-    public void loadNearbyStops(){
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        layoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(layoutManager);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://api.translink.ca/")
@@ -89,45 +92,117 @@ public class NearbyActivity extends AppCompatActivity {
                 .build();
 
         TransLinkService service = retrofit.create(TransLinkService.class);
-        //TODO: Add dynemic upload of current location
-        Call<List<Stop>> call = service.getStop("fH8nhLCTC142J3YXmtLC",49.226258,-123.000436);
+        double lat = (double)Math.round(latLng.latitude * 1000000d) / 1000000d;
+        double longt =  (double)Math.round(latLng.longitude * 1000000d) / 1000000d;
+        Call<List<Stop>> call = service.getStop("fH8nhLCTC142J3YXmtLC", lat, longt);
         call.enqueue(new Callback<List<Stop>>() {
             @Override
             public void onResponse(Call<List<Stop>> call, Response<List<Stop>> response) {
                 data = response.body();
-                mCardAdapter = new CardAdapter(data);
-                mRecyclerView.setAdapter(mCardAdapter);
-                loadMap(data);
+                if(data!=null) {
+                    data = data.subList(0, 10);
+                    mCardAdapter = new CardAdapter(data);
+                    mRecyclerView.setAdapter(mCardAdapter);
 
+                    if(mMap!=null)
+                    for (Stop stop : data) {
+                        Marker marker =
+                                mMap.addMarker(new MarkerOptions().position(new LatLng(stop.getLat(), stop.getLongt())).title("" + stop.getStopNo()));
+                        hashMap.put(marker, stop);
+
+                    }
+                }
+                else
+                    Toast.makeText(getApplicationContext(), "no translink service in the area", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<List<Stop>> call, Throwable t) {
-                Log.d("Error",t.getMessage());
+                Log.d("Error", t.getMessage());
             }
         });
     }
 
-    public void loadMap(final List<Stop> stopData){
-        if(findViewById(R.id.map) != null)
-        {
+    public void loadMap(LatLng latLng) {
+        if (findViewById(R.id.map) != null) {
+            hashMap = new HashMap<>();
             SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.map);
-            mapFragment.getMapAsync(new OnMapReadyCallback() {
-                @Override
-                public void onMapReady(GoogleMap googleMap) {
+            mapFragment.getMapAsync(googleMap ->  {
                     mMap = googleMap;
-                    for(Stop stop : stopData)
-                    {
-                        mMap.addMarker(new MarkerOptions().position(new LatLng(stop.getLat(), stop.getLongt())).title(""+stop.getStopNo()));
+                   if (checkPermission())
+                        mMap.setMyLocationEnabled(true);
+                   else
+                       askPermission();
+
+                    CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latLng,
+                            15);
+                    mMap.moveCamera(update);
+
+                    mMap.setOnMarkerClickListener(marker ->  {
+                            selMarker = marker;
+                            layoutManager.scrollToPositionWithOffset(data.indexOf(hashMap.get(selMarker)), 20);
+                            CardAdapter.HIGHLIGHTED = data.indexOf(hashMap.get(selMarker));
+                            mCardAdapter.notifyDataSetChanged();
+                            return false;
+                    });
+            });
+
+        }
+    }
+
+    private boolean checkPermission() {
+        Log.d("test", "checxPermission ");
+        return (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED);
+    }
+
+    private void askPermission() {
+        ActivityCompat.requestPermissions(
+                this,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQ_PERMISSION
+
+        );
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQ_PERMISSION: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    updateLocation();
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        mMap.setMyLocationEnabled(true);
                     }
-/*
-                    // Add a marker in Sydney, Australia, and move the camera.
-                    LatLng sydney = new LatLng(-34, 151);
-                    mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney)); */
+
+                } else {
+                }
+                break;
+            }
+        }
+    }
+
+    private void updateLocation(){
+        FusedLocationProviderClient mFusedLocationClient = LocationServices
+                .getFusedLocationProviderClient(this);
+        if(checkPermission())
+        {
+            Task<Location> locationResult = mFusedLocationClient.getLastLocation();
+            locationResult.addOnCompleteListener(new OnCompleteListener<Location>() {
+                @Override
+                public void onComplete(@NonNull Task<Location> task) {
+                    if (task.isSuccessful()) {
+                        Location location = task.getResult();
+                        currentLatLtng = new LatLng(location.getLatitude(),
+                               location.getLongitude());
+                    }
+                    mObservable.onNext(currentLatLtng);
                 }
             });
         }
+
     }
+
 }

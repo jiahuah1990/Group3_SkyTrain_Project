@@ -3,6 +3,7 @@ package com.yamibo.bbs.group3_skytrain_project.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -22,6 +23,7 @@ import java.util.List;
 
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     List<Stop> mItems = new ArrayList<>();
+    public static int HIGHLIGHTED = -1;
 
     public CardAdapter(List<Stop> mItems) {
         this.mItems = mItems;
@@ -52,6 +54,15 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         holder.stop_name.setText(stopName);
         holder.dist.setText(""+stop.getDistance());
         holder.routes.setText(stop.getRoutes());
+        TextView tv =
+                (TextView) holder.mView.findViewById(R.id.item_card).findViewById(R.id.stop_name);
+        int color = tv.getResources().getColor(android.R.color.primary_text_light);
+        if(position == HIGHLIGHTED)
+            tv.setTextColor(Color.BLUE);
+
+
+        else
+          tv.setTextColor(color);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +77,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
 
     }
+
+
 
     @Override
     public int getItemCount() {
