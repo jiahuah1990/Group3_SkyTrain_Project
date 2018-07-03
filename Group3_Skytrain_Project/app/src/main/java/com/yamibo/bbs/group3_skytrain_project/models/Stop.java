@@ -1,16 +1,10 @@
 package com.yamibo.bbs.group3_skytrain_project.models;
 
-public class Stop {
-    private String BayNo;
-    private String City;
-    private String OnStreet;
-    private String AtStreet;
-    private String Routes;
-    private double Latitude;
-    private double Longitude;
-    private int StopNo;
-    private int Distance;
-    private int WheelchairAccess;
+public class Stop implements BaseModel {
+    private String BayNo,City,OnStreet,AtStreet;
+    private String Routes,stopsName;
+    private double Latitude,Longitude;
+    private int StopNo,Distance, WheelchairAccess;
 
 
 
@@ -27,7 +21,9 @@ public class Stop {
         this.Longitude = longt;
     }
 
-
+    public Stop(String stopsName){
+        this.stopsName=stopsName;
+    }
 
     public int getStopNo() {
         return StopNo;
@@ -108,8 +104,15 @@ public class Stop {
     public void setLongt(double longt) {
         this.Longitude = longt;
     }
+    public void setStopsNames(String stopsName){
+        this.stopsName=stopsName;
+    }
+    public String getStopsName(){
+        return stopsName;
+    }
 
-
-
-
+    @Override
+    public int getViewType() {
+        return Constants.ViewType.STOPS_TYPE;
+    }
 }
