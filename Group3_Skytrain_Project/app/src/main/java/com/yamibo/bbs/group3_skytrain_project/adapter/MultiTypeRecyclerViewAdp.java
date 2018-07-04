@@ -11,23 +11,30 @@ import com.yamibo.bbs.group3_skytrain_project.R;
 import com.yamibo.bbs.group3_skytrain_project.models.BaseModel;
 import com.yamibo.bbs.group3_skytrain_project.models.Constants;
 import com.yamibo.bbs.group3_skytrain_project.models.Stop;
+import com.yamibo.bbs.group3_skytrain_project.models.TranslinkFeed;
 
-import java.util.Collection;
 import java.util.List;
 
 public class MultiTypeRecyclerViewAdp extends RecyclerView.Adapter<BaseViewHolder> {
-    private List<? extends BaseModel> mList;
-    private LayoutInflater mInflator;
+    private List<? extends BaseModel> baseList;
+    private LayoutInflater inflater;
 
     public MultiTypeRecyclerViewAdp(List<? extends BaseModel> list, Context context) {
-        this.mList = list;
-        this.mInflator = LayoutInflater.from(context);
+        this.baseList = list;
+        /**baseList is a multi-type list which means one recView adapter
+         * can adapt multiple defined types (models)*/
+
+        this.inflater = LayoutInflater.from(context);
     }
 
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case Constants.ViewType.STOPS_TYPE:
-                return new StopsHolder(mInflator.inflate(R.layout.type_recipe,parent,false));
+                return new StopsHolder(inflater.inflate(R.layout.stops_list,parent,false));
+            case Constants.ViewType.FEED_TYPE:
+                return new TransFeedHolder(inflater.inflate(R.layout.list_trans_feed,
+                        parent,false));
+
         }
         return null;
     }
@@ -35,37 +42,42 @@ public class MultiTypeRecyclerViewAdp extends RecyclerView.Adapter<BaseViewHolde
     @Override
     @SuppressWarnings("unchecked")
     public void onBindViewHolder(BaseViewHolder holder, int position) {
-        holder.bind(mList.get(position));
+        holder.bind(baseList.get(position));
     }
 
 
     @Override
     public int getItemViewType(int position) {
-        return mList.get(position).getViewType();
+        return baseList.get(position).getViewType();
     }
 
     public int getItemCount() {
-        return mList.size();
+        return baseList.size();
     }
 
+    public static class TransFeedHolder extends BaseViewHolder<TranslinkFeed>{
+        private TextView timeStampTv;
+        public TransFeedHolder(View itemView){
+            super(itemView);
+            timeStampTv=(TextView)itemView.findViewById(R.id.timeStampTxt);
+        }
+        @Override
+        public void bind(TranslinkFeed object) {
+            timeStampTv.setText(object.getTimeStamp());
+        }
+    }
     public static class StopsHolder extends BaseViewHolder<Stop> {
         private TextView mItem;
 
         public StopsHolder(View itemView) {
             super(itemView);
-            mItem = (TextView) itemView.findViewById(R.id.item);
+            mItem = (TextView) itemView.findViewById(R.id.item_card);
         }
 
         @Override
-        public void bind(T object) {
-
-        }
-
-        @Override
-        public void bind(Collection object) {
-            mItem.setText(object.getClass());
+        public void bind(Stop object) {
+            mItem.setText(object.getStopNo());
         }
     }
-    /** Will create viewHolder for each type of list
-     * */
+    /** Will create viewHolder for each type of lists */
 }

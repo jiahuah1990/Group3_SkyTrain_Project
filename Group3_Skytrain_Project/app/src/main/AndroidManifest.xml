@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yamibo.bbs.group3_skytrain_project">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -28,11 +28,13 @@
             android:label="SkyTrain Map"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.NearbyActivity" />
-        <activity android:name=".activities.StopDetailActivity"></activity>
-       <meta-data
+        <activity android:name=".activities.StopDetailActivity" />
+
+        <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCK8NQQ8XlPnc5oxfML2vvSlpzrbJUjZqA"
-            />
+            android:value="AIzaSyCK8NQQ8XlPnc5oxfML2vvSlpzrbJUjZqA" />
+
+        <activity android:name=".activities.MainActivity"></activity>
     </application>
 
 </manifest>

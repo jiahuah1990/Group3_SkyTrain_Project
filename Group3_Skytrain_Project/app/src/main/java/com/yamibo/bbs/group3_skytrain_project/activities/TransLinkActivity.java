@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.yamibo.bbs.group3_skytrain_project.R;
 
@@ -19,7 +18,7 @@ public class TransLinkActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trans_link_map);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarMain);
         setSupportActionBar(toolbar);
         btnGoNearby = findViewById(R.id.button);
         btnGoNearby.setOnClickListener(new View.OnClickListener() {

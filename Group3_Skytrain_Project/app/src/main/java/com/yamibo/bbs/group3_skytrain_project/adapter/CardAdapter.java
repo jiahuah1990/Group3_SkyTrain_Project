@@ -1,21 +1,17 @@
 package com.yamibo.bbs.group3_skytrain_project.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.yamibo.bbs.group3_skytrain_project.R;
 import com.yamibo.bbs.group3_skytrain_project.activities.StopDetailActivity;
-import com.yamibo.bbs.group3_skytrain_project.map.MapFragment;
 import com.yamibo.bbs.group3_skytrain_project.models.Stop;
 
 import java.util.ArrayList;
@@ -42,7 +38,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     @Override
     public CardAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_view_item, parent, false);
+                .inflate(R.layout.card_view_stop, parent, false);
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }

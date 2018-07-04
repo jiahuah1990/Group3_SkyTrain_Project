@@ -19,23 +19,9 @@ import com.yamibo.bbs.group3_skytrain_project.R;
  * status bar and navigation/system bar) with user interaction.
  */
 public class SplashScreenActivity extends AppCompatActivity {
-    /**
-     * Whether or not the system UI should be auto-hidden after
-     * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
-     */
+
     private static final boolean AUTO_HIDE = true;
-
-
-     /**
-     * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
-     * user interaction before hiding the system UI.
-     */
     private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
-
-    /**
-     * Some older devices needs a small delay between UI widget updates
-     * and a change of the status and navigation bar.
-     */
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
     private View mContentView;
@@ -97,11 +83,9 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_splash_screen);
 
-
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
-
 
         // Set up the user interaction to manually show or hide the system UI.
         mContentView.setOnClickListener(new View.OnClickListener() {
@@ -116,9 +100,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
         splash();
-
-
-
     }
 
     @Override
@@ -181,7 +162,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
             @Override
             public void onFinish(){
-                Intent intent=new Intent(getBaseContext(),TransLinkActivity.class);
+                Intent intent=new Intent(getBaseContext(),MainActivity.class);
                 startActivity(intent);
                 finish();
             }
