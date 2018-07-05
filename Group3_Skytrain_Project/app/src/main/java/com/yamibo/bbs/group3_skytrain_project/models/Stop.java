@@ -6,8 +6,6 @@ public class Stop implements BaseModel {
     private double Latitude,Longitude;
     private int StopNo,Distance, WheelchairAccess;
 
-
-
     public Stop(int stopNo, int distance, int wheelchairAccess, String bayNo, String city, String onStreet, String atStreet, String routes, double lat, double longt) {
         this.StopNo = stopNo;
         this.Distance = distance;

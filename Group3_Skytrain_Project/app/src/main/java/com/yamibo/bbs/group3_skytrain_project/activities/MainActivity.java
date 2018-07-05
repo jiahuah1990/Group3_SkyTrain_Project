@@ -4,12 +4,14 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import com.yamibo.bbs.group3_skytrain_project.R;
+import com.yamibo.bbs.group3_skytrain_project.adapter.ViewPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private android.app.Fragment transitFrag;
     private android.app.Fragment feedFrag;
     private CollapsingToolbarLayout collapsyToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

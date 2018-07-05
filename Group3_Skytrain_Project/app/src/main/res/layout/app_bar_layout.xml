@@ -25,20 +25,6 @@
             app:expandedTitleMarginStart="48dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:src="@drawable/kitten_bubble"
-                    android:background="@android:color/white"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintDimensionRatio="w,4:1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
-            </android.support.constraint.ConstraintLayout>
-
         <include layout="@layout/toolbar"
             android:id="@+id/toolbarMain"/>
         </android.support.design.widget.CollapsingToolbarLayout>>
