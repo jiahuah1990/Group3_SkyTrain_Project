@@ -19,11 +19,11 @@ import java.util.List;
 
 import retrofit2.http.Query;
 
-public class MultiTypeRecyclerViewAdp extends RecyclerView.Adapter<BaseViewHolder> {
+public class MultiViewRecAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private List<? extends BaseModel> baseList;
     private LayoutInflater inflater;
     private View v;
-    public MultiTypeRecyclerViewAdp(List<? extends BaseModel> list, Context context) {
+    public MultiViewRecAdapter(List<? extends BaseModel> list, Context context) {
         this.baseList = list;
         /**baseList is a multi-type list which means one recView adapter
          * can adapt multiple defined types (models)*/

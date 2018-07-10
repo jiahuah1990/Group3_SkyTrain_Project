@@ -22,16 +22,7 @@ public class Fragment_Tabs extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceStat){
         v=inflater.inflate(R.layout.swipe_tabs_layout,container,false);
-        viewPager=(ViewPager)v.findViewById(R.id.viewPagerForTabs);
-        viewPager.setAdapter(new SwipeTabsAdapter(getChildFragmentManager()));
 
-        tabLayout=(TabLayout)v.findViewById(R.id.tabLayout);
-        tabLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                tabLayout.setupWithViewPager(viewPager);
-            }
-        });
         return v;
     }
     @Override

@@ -9,22 +9,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yamibo.bbs.group3_skytrain_project.R;
-import com.yamibo.bbs.group3_skytrain_project.adapter.ViewPagerAdapter;
+import com.yamibo.bbs.group3_skytrain_project.adapter.ImgPagerAdp;
+
+import java.util.List;
 
 @SuppressLint("ValidFragment")
 public class NestedPagerFragment extends Fragment {
     public NestedPagerFragment(){}
-    private ViewPager viewPager;
-    private ViewPagerAdapter pagerAdp;
+    private ImgPagerAdp pagerAdp;
     private static View v;
+    private static List<Integer> imgIdList;
+    /*For the sliding tabs*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         v=inflater.inflate(R.layout.fragment_pager_schedule,container,false);
-        viewPager = (ViewPager)v.findViewById(R.id.pager_schedule);
-        //ViewPager with images
-        pagerAdp = new ViewPagerAdapter(getContext());
-        viewPager.setAdapter(pagerAdp);
+        pagerAdp=new ImgPagerAdp(getContext(),imgIdList);
         return v;
     }
 }
