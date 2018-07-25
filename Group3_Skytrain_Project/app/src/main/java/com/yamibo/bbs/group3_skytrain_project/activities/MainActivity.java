@@ -11,7 +11,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.yamibo.bbs.group3_skytrain_project.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppBaseActivity {
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private android.app.Fragment tripFrag;
@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setTitle("TransLink");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setSubtitle("Data by TransLink");
     }
 
