@@ -1,6 +1,7 @@
 package com.yamibo.bbs.group3_skytrain_project.activities;
 
 import android.Manifest;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.support.annotation.NonNull;
@@ -11,16 +12,13 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -28,7 +26,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.yamibo.bbs.group3_skytrain_project.R;
-import com.yamibo.bbs.group3_skytrain_project.adapter.CardAdapter;
+import com.yamibo.bbs.group3_skytrain_project.adapter.CardAdapter_NearbyStops;
 import com.yamibo.bbs.group3_skytrain_project.models.Stop;
 import com.yamibo.bbs.group3_skytrain_project.service.TransLinkService;
 
@@ -47,7 +45,7 @@ public class NearbyActivity extends AppCompatActivity {
 
     private List<Stop> data;
     private RecyclerView mRecyclerView;
-    private CardAdapter mCardAdapter;
+    private CardAdapter_NearbyStops mCardAdapterNearbyStops;
     private GoogleMap mMap;
     private Marker selMarker;
     private LinearLayoutManager layoutManager;
@@ -66,6 +64,8 @@ public class NearbyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nearby);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        CardAdapter_NearbyStops.HIGHLIGHTED = -1;
 
         mObservable.map(value -> {
             Log.d("test", "loadNearbyStops: ");
@@ -101,8 +101,8 @@ public class NearbyActivity extends AppCompatActivity {
                 data = response.body();
                 if(data!=null) {
                     data = data.subList(0, 10);
-                    mCardAdapter = new CardAdapter(data);
-                    mRecyclerView.setAdapter(mCardAdapter);
+                    mCardAdapterNearbyStops = new CardAdapter_NearbyStops(data);
+                    mRecyclerView.setAdapter(mCardAdapterNearbyStops);
 
                     if(mMap!=null)
                     for (Stop stop : data) {
@@ -142,8 +142,8 @@ public class NearbyActivity extends AppCompatActivity {
                     mMap.setOnMarkerClickListener(marker ->  {
                             selMarker = marker;
                             layoutManager.scrollToPositionWithOffset(data.indexOf(hashMap.get(selMarker)), 20);
-                            CardAdapter.HIGHLIGHTED = data.indexOf(hashMap.get(selMarker));
-                            mCardAdapter.notifyDataSetChanged();
+                            CardAdapter_NearbyStops.HIGHLIGHTED = data.indexOf(hashMap.get(selMarker));
+                            mCardAdapterNearbyStops.notifyDataSetChanged();
                             return false;
                     });
             });
