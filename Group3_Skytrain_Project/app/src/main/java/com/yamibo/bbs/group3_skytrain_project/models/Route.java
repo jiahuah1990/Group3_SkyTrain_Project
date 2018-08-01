@@ -1,5 +1,7 @@
 package com.yamibo.bbs.group3_skytrain_project.models;
 
+import java.util.List;
+
 public class Route {
     public String getRouteNo() {
         return RouteNo;
@@ -17,22 +19,25 @@ public class Route {
         RouteName = routeName;
     }
 
-    public Schedule[] getSchedules() {
-        return Schedules;
-    }
 
-    public void setSchedules(Schedule[] schedules) {
+    public Route(String routeNo, String routeName, List<Schedule> schedules) {
         Schedules = schedules;
-    }
-
-    public Route(String routeNo, String routeName, Schedule[] schedules) {
         RouteNo = routeNo;
         RouteName = routeName;
-        Schedules = schedules;
+
     }
 
     private String RouteNo;
     private String RouteName;
-    private Schedule[] Schedules;
+
+    public List<Schedule> getSchedules() {
+        return Schedules;
+    }
+
+    public void setSchedules(List<Schedule> schedules) {
+        Schedules = schedules;
+    }
+
+    private List<Schedule> Schedules;  // add mutators with @JsonProperty annotation
 
 }

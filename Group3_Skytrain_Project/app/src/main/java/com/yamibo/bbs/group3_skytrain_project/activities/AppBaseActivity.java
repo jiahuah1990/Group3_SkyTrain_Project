@@ -41,7 +41,6 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
         for(int i = 0; i < drawerMenu.size(); i++) {
             drawerMenu.getItem(i).setOnMenuItemClickListener(this);
         }
-        // and so on...
     }
 
     @Override
@@ -95,7 +94,8 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-        // Handle your other action bar items...
+        if(item.getItemId() == R.id.action_refresh)
+            recreate();
 
         return super.onOptionsItemSelected(item);
     }
@@ -104,9 +104,18 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
 
+            case R.id.m_home:
+                Intent intent2 = new Intent(this, MainActivity.class);
+                startActivity(intent2);
+                break;
             case R.id.m_nearby:
                 Intent intent = new Intent(this, NearbyActivity.class);
                 startActivity(intent);
+                break;
+
+            case R.id.m_feedback:
+                Intent intent3 = new Intent(this, Feedback.class);
+                startActivity(intent3);
                 break;
             //TODO @Leo add calls for your activities here
         }

@@ -6,10 +6,14 @@
         <item name="android:windowActionBar">false</item>
         <item name="android:toolbarStyle">@layout/app_bar_layout</item>
         <item name="android:windowNoTitle">true</item>
+        <item name="drawerArrowStyle">@style/DrawerIcon</item>
+        <item name="colorPrimary">#0060A8</item>
+        <item name="colorPrimaryDark">#5C5C5D</item>
+        <item name="colorAccent">#DCDCDC</item>
+    </style>
 
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="DrawerIcon" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">#FFFF</item>
     </style>
 
     <style name="FullscreenTheme" parent="AppTheme">
@@ -30,7 +34,7 @@
     </style>
     <style name="MenuItems" parent="AppTheme">
         <item name="android:textSize">20sp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textStyle"></item>
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
