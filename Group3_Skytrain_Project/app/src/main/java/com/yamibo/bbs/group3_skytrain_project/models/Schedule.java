@@ -5,9 +5,10 @@ import android.widget.ImageView;
 public class Schedule implements BaseModel {
     private int imgIds;
 
-    public Schedule(String destination, int expectedCountdown) {
+    public Schedule(String destination, int expectedCountdown, String scheduleStatus) {
         Destination = destination;
         ExpectedCountdown = expectedCountdown;
+        ScheduleStatus = scheduleStatus;
     }
 
     public String getDestination() {
@@ -28,6 +29,16 @@ public class Schedule implements BaseModel {
 
     private String Destination;
     private int ExpectedCountdown;
+
+    public String getScheduleStatus() {
+        return ScheduleStatus;
+    }
+
+    public void setScheduleStatus(String scheduleStatus) {
+        ScheduleStatus = scheduleStatus;
+    }
+
+    private String ScheduleStatus;
 
     public Schedule(int imgIds){
         this.imgIds=imgIds;

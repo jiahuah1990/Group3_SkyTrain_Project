@@ -1,6 +1,8 @@
 package com.yamibo.bbs.group3_skytrain_project.activities;
 
+import android.content.Intent;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewCompat;
@@ -8,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.yamibo.bbs.group3_skytrain_project.R;
 
@@ -26,6 +29,14 @@ public class MainActivity extends AppBaseActivity {
         setToolbar();
         setTabsFragment(new Fragment_Tabs());
         initTabFragments();
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, NearbyActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     public void setToolbar(){
         toolbar=(Toolbar)findViewById(R.id.toolbarMain);

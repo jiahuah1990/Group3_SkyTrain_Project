@@ -11,7 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -41,8 +45,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import rx.subjects.PublishSubject;
 
 
-public class NearbyActivity extends AppCompatActivity {
-
+public class NearbyActivity extends AppBaseActivity {
+    private Toolbar toolbar;
     private List<Stop> data;
     private RecyclerView mRecyclerView;
     private CardAdapter_NearbyStops mCardAdapterNearbyStops;
@@ -66,7 +70,7 @@ public class NearbyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nearby);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         CardAdapter_NearbyStops.HIGHLIGHTED = -1;
-
+        setToolbar();
         mObservable.map(value -> {
             Log.d("test", "loadNearbyStops: ");
             loadNearbyStops(value);
@@ -78,7 +82,12 @@ public class NearbyActivity extends AppCompatActivity {
         updateLocation();
     }
 
-
+    public void setToolbar(){
+        toolbar=(Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Stops Near You");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
    public void loadNearbyStops(LatLng latLng) {
 
         mRecyclerView = findViewById(R.id.recycler_view);
@@ -203,6 +212,13 @@ public class NearbyActivity extends AppCompatActivity {
             });
         }
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.update_menu, menu);
+        return true;
     }
 
 }
