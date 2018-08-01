@@ -1,6 +1,7 @@
 package com.yamibo.bbs.group3_skytrain_project.activities;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -45,7 +46,7 @@ public class StopDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stop_detail);
-
+     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
