@@ -68,7 +68,7 @@ public class NearbyActivity extends AppBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nearby);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         CardAdapter_NearbyStops.HIGHLIGHTED = -1;
         setToolbar();
         mObservable.map(value -> {
