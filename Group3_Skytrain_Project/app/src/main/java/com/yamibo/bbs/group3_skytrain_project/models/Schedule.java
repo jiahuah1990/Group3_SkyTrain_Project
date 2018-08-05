@@ -1,6 +1,6 @@
 package com.yamibo.bbs.group3_skytrain_project.models;
 
-import android.widget.ImageView;
+import Utils.RecViewConstants;
 
 public class Schedule implements BaseModel {
     private int imgIds;
@@ -45,7 +45,7 @@ public class Schedule implements BaseModel {
     }
     @Override
     public int getViewType() {
-        return Constants.ViewType.SCHEDULE;
+        return RecViewConstants.ViewType.SCHEDULE;
     }
 
     public int getImgIds() {

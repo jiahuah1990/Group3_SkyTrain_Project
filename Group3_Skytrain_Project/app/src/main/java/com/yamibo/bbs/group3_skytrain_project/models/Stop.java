@@ -1,5 +1,7 @@
 package com.yamibo.bbs.group3_skytrain_project.models;
 
+import Utils.RecViewConstants;
+
 public class Stop implements BaseModel {
     private String BayNo,City,OnStreet,AtStreet;
     private String Routes,stopsName;
@@ -111,6 +113,6 @@ public class Stop implements BaseModel {
 
     @Override
     public int getViewType() {
-        return Constants.ViewType.STOPS_TYPE;
+        return RecViewConstants.ViewType.STOPS_TYPE;
     }
 }

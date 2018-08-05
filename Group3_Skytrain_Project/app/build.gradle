@@ -56,4 +56,10 @@ dependencies {
 
     implementation 'com.android.volley:volley:1.1.1'
 
+    implementation('org.simpleframework:simple-xml:2.7.+'){
+        exclude module: 'stax'
+        exclude module: 'stax-api'
+        exclude module: 'xpp3'
+    }
+
 }

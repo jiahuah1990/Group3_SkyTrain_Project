@@ -1,19 +1,42 @@
 package com.yamibo.bbs.group3_skytrain_project.models;
 
-public class TranslinkFeed implements BaseModel {
-    String timeStamp,status,location,schedule;
-    int travelTime,speedKmph,linkedId;
+import org.json.JSONArray;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
+import java.io.Serializable;
+import java.util.List;
+
+import Utils.RecViewConstants;
+@Root
+public class TranslinkFeed implements BaseModel,Serializable{
+
+    private String timeStamp,status,location,schedule,title;
+    private String category;
+    private int travelTime,speedKmph,linkedId;
+
+    @Element
+    private String feedsContent;
     public TranslinkFeed (){
         //put am empty constructor just in case of declaration
     }
 
-    public TranslinkFeed(String timeStamp){
+    public TranslinkFeed(String title,String timeStamp,String feedsContent,String category){
+        this.title=title;
         this.timeStamp=timeStamp;
+        this.feedsContent=feedsContent;
+        this.category=category;
     }
+
+    public TranslinkFeed(String status) {
+        this.status = status;
+       /* this.feed = feed;
+        this.items = items;*/
+    }
+
     @Override
     public int getViewType() {
-        return Constants.ViewType.FEED_TYPE;
+        return RecViewConstants.ViewType.FEED_TYPE;
     }
 
     public String getTimeStamp() {
@@ -70,5 +93,29 @@ public class TranslinkFeed implements BaseModel {
 
     public void setLinkedId(int linkedId) {
         this.linkedId = linkedId;
+    }
+
+    public String getFeedsContent() {
+        return feedsContent;
+    }
+
+    public void setFeedsContent(String feedsContent) {
+        this.feedsContent = feedsContent;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

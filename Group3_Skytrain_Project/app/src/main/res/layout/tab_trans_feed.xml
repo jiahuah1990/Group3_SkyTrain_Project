@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/feedFrm"
     android:layout_width="match_parent"
@@ -9,12 +9,47 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <TextView
+            android:text="What's New"
+            android:padding="3dp"
+            android:layout_margin="4dp"
+            android:background="@android:color/darker_gray"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
         <android.support.v7.widget.RecyclerView
             android:id="@+id/feed_recView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:padding="6dp" />
-        <!--<include layout="@layout/list_trans_feed" />-->
+            android:layout_margin="3dp"
+            android:padding="3dp" />
+        <TextView
+            android:text="Event Feeds"
+            android:padding="3dp"
+            android:layout_margin="3dp"
+            android:background="@android:color/darker_gray"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/event_feed_rec"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:padding="3dp" />
+        <TextView
+            android:text="Media Feeds"
+            android:padding="3dp"
+            android:layout_margin="3dp"
+            android:background="@android:color/darker_gray"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/media_feed_rec"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:padding="3dp" />
+
     </LinearLayout>
-</FrameLayout>
+
+    <!--<include layout="@layout/list_trans_feed" />-->
+</RelativeLayout>

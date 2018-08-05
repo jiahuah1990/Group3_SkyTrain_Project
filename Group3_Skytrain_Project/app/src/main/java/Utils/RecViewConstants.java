@@ -1,15 +1,15 @@
-package com.yamibo.bbs.group3_skytrain_project.models;
+package Utils;
 
 import android.support.annotation.IntDef;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import static com.yamibo.bbs.group3_skytrain_project.models.Constants.ViewType.FEED_TYPE;
-import static com.yamibo.bbs.group3_skytrain_project.models.Constants.ViewType.SCHEDULE;
-import static com.yamibo.bbs.group3_skytrain_project.models.Constants.ViewType.STOPS_TYPE;
+import static Utils.RecViewConstants.ViewType.FEED_TYPE;
+import static Utils.RecViewConstants.ViewType.SCHEDULE;
+import static Utils.RecViewConstants.ViewType.STOPS_TYPE;
 
-public class Constants {
+public class RecViewConstants {
 /***Class declaring different type of recyclerView content*/
     @IntDef({STOPS_TYPE,FEED_TYPE,SCHEDULE})
     @Retention(RetentionPolicy.SOURCE)

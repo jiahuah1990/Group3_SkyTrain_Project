@@ -25,15 +25,5 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
     </android.support.v4.widget.NestedScrollView>
     <include layout="@layout/content_main_tabs" />
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:backgroundTint="#DCDCDC"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right|end"
-        android:scaleX="1.2"
-        android:scaleY="1.2"
-        app:borderWidth="0dp"
-        android:src="@drawable/nearby"
-        android:layout_margin="16dp" />
+
 </android.support.design.widget.CoordinatorLayout>
