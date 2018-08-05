@@ -23,6 +23,4 @@ public interface TransLinkService {
     @Headers("Accept: application/json")
     @GET("/rttiapi/v1/stops/{stop}/estimates")
     Call<List<Route>> getRoutes(@Path("stop") String stop, @Query("apikey") String apikey, @Query("timeframe") int timeframe );
-    //@GET("stops?apikey=fH8nhLCTC142J3YXmtLC&{lat}&{longt}")
-    //Call<JSONResponse> getStop(@Path("lat") double lat, @Path("longt") double longt);
 }

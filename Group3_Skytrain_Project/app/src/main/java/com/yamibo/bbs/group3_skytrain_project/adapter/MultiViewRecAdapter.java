@@ -2,6 +2,7 @@ package com.yamibo.bbs.group3_skytrain_project.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,8 +50,6 @@ public class MultiViewRecAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public void onBindViewHolder(BaseViewHolder holder, int position) {
         holder.bind(baseList.get(position));
     }
-
-
     @Override
     public int getItemViewType(int position) {
         return baseList.get(position).getViewType();

@@ -53,10 +53,6 @@ public class MainActivity extends AppBaseActivity {
             FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.rootViewPager,new Fragment_Tabs()).commit();
         }
-        //Uncomment the drawerLayout declaration below in case
-        // of the combination of drawer and swiping tabs
-       /* DrawerLayout drawer =(DrawerLayout)findViewById(R.id.drawerLayout);
-        drawer.closeDrawer(GravityCompat.START);*/
     }
     private void initTabFragments(){
         tripFrag=getFragmentManager().findFragmentById(R.layout.tab_trip_plan);

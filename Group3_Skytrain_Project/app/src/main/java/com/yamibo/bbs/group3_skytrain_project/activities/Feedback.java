@@ -10,8 +10,6 @@ import com.yamibo.bbs.group3_skytrain_project.R;
 public class Feedback extends AppCompatActivity {
     private Toolbar toolbar;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +20,6 @@ public class Feedback extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Feedback");
-
     }
 
     @Override

@@ -21,7 +21,7 @@ public class ImgPagerAdp extends PagerAdapter {
     private static ImageView imgView1,imgView2,imgView3,imgView4,imgView5;
     private LayoutInflater inflater;
     private static View v;
-    @SuppressLint("ServiceCast")
+
     public ImgPagerAdp(Context context, List<Integer> imgIds){
         this.context=context;
         this.inflater=(LayoutInflater)context
