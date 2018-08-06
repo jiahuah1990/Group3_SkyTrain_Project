@@ -10,7 +10,7 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="SkeyTrain App Main Page"
+        android:label="TransLink App"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -34,10 +34,14 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCK8NQQ8XlPnc5oxfML2vvSlpzrbJUjZqA" />
+            android:value="AIzaSyB03sko-6mszpdSZXG2qShJWD18fabS9eM" />
 
         <activity android:name=".activities.MainActivity" />
         <activity android:name=".activities.Feedback"></activity>
+        <activity android:name=".activities.BusStopNoActivities" />
+        <activity
+            android:name=".activities.LocationActivity"
+            android:label="Distance" />
     </application>
 
 </manifest>

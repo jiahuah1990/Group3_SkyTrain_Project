@@ -117,7 +117,17 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
                 Intent intent3 = new Intent(this, Feedback.class);
                 startActivity(intent3);
                 break;
+
+            case R.id.m_busN:
+                Intent intent4 = new Intent(this, BusStopNoActivities.class);
+                startActivity(intent4);
+                break;
             //TODO @Leo add calls for your activities here
+            case R.id.m_stopN:
+                Intent intent5 = new Intent(this, LocationActivity.class);
+                startActivity(intent5);
+                break;
+
         }
         return false;
     }

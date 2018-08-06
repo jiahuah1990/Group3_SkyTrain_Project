@@ -22,7 +22,7 @@
             android:keepScreenOn="true"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="SkyTrain APP"
+            android:text="TransLink APP"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:textColor="@android:color/white"
@@ -50,9 +50,9 @@
 
             <Button
                 android:id="@+id/dummy_button"
-                android:background="@android:color/transparent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent" />
         </LinearLayout>
     </FrameLayout>
 

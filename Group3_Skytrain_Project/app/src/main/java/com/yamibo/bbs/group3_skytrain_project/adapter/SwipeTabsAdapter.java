@@ -4,13 +4,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.yamibo.bbs.group3_skytrain_project.activities.FragmentFavorits;
-import com.yamibo.bbs.group3_skytrain_project.activities.FragmentTransFeed;
+import com.yamibo.bbs.group3_skytrain_project.activities.FragmentFavorites;
 import com.yamibo.bbs.group3_skytrain_project.activities.FragmentTransit;
 import com.yamibo.bbs.group3_skytrain_project.activities.FragmentTripPlan;
 
 public class SwipeTabsAdapter extends FragmentPagerAdapter {
-    private String[] titles={"Trip Planner","Transit Schedule","Trans Feeds","My Favorite" };
+    private String[] titles={"Trip Planner","Transit Schedule","Favorites" };
 
     public SwipeTabsAdapter(FragmentManager fragMg){
         super(fragMg);
@@ -22,10 +21,10 @@ public class SwipeTabsAdapter extends FragmentPagerAdapter {
                 return new FragmentTripPlan();
             case 1:
                 return new FragmentTransit();
+          /*  case 2:
+                return new FragmentNewsFeed();*/
             case 2:
-                return new FragmentTransFeed();
-            case 3:
-                return new FragmentFavorits();
+                return new FragmentFavorites();
 
         }
         return null;

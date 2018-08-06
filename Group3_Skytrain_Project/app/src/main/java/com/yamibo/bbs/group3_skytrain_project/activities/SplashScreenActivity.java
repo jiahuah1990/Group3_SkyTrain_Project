@@ -21,7 +21,7 @@ import com.yamibo.bbs.group3_skytrain_project.R;
 public class SplashScreenActivity extends AppCompatActivity {
 
     private static final boolean AUTO_HIDE = true;
-    private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
+    private static final int AUTO_HIDE_DELAY_MILLIS = 2000;
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
     private View mContentView;

@@ -5,9 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".activities.FragmentFavorites">
 
-    <TextView
+    <!-- TODO: Update blank fragment layout -->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/faveRecView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:padding="3dp"/>
 
 </FrameLayout>

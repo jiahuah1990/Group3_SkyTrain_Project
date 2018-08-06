@@ -9,10 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.yamibo.bbs.group3_skytrain_project.R;
 import com.yamibo.bbs.group3_skytrain_project.models.BaseModel;
 import Utils.RecViewConstants;
 
+import com.yamibo.bbs.group3_skytrain_project.models.Favorites;
 import com.yamibo.bbs.group3_skytrain_project.models.Stop;
 import com.yamibo.bbs.group3_skytrain_project.models.TranslinkFeed;
 
@@ -22,6 +24,15 @@ public class MultiViewRecAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private static List<? extends BaseModel> baseList;
     private LayoutInflater inflater;
     private View v;
+    private OnItemClickListener listener;
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
     public MultiViewRecAdapter(List<? extends BaseModel> list, Context context) {
         this.baseList = list;
         /**baseList is a multi-type list which means one recView adapter
@@ -39,6 +50,10 @@ public class MultiViewRecAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 v = LayoutInflater.from(parent.getContext()).inflate
                     (R.layout.list_trans_feed, parent, false);
                 return new TransFeedHolder(v,viewType);
+            case RecViewConstants.ViewType.FAVE_TYPE:
+                v=LayoutInflater.from(parent.getContext()).inflate
+                        (R.layout.list_favorites,parent,false);
+                return new FavoriteHolder(v,viewType);
         }
         return null;
     }
@@ -57,7 +72,7 @@ public class MultiViewRecAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         return baseList.size();
     }
 
-    public static class TransFeedHolder extends BaseViewHolder<TranslinkFeed>{
+    public class TransFeedHolder extends BaseViewHolder<TranslinkFeed>{
         private TextView timeStampTv,contentTv,titleTv,categoryTv;
         private ImageView icFeedsImgView;
         private CardView card;
@@ -70,6 +85,18 @@ public class MultiViewRecAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             categoryTv=(TextView)itemView.findViewById(R.id.categoryTV);
 
             card=(CardView)itemView.findViewById(R.id.feedsCardView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
         @Override
         public void bind(TranslinkFeed object) {
@@ -79,15 +106,16 @@ public class MultiViewRecAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             categoryTv.setText(object.getCategory());
 
             if(titleTv.getText().toString().equals("")){
-               //remove the cardView
             }else if(categoryTv.getText().toString().equals("News")){
                 icFeedsImgView.setImageResource(R.drawable.ic_news_feed);
-            }else if(categoryTv.getText().toString()==null){
+            }else if(categoryTv.getText().toString().equals("")){
                 icFeedsImgView.setImageResource(R.drawable.ic_media);
+                categoryTv.setVisibility(View.INVISIBLE);
             }
+
         }
     }
-    public static class StopsHolder extends BaseViewHolder<Stop> {
+    public class StopsHolder extends BaseViewHolder<Stop> {
         private TextView mItem;
 
         public StopsHolder(View itemView,int viewType) {
@@ -101,5 +129,25 @@ public class MultiViewRecAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
     }
 
+    //Faves
+    public class FavoriteHolder extends BaseViewHolder<Favorites>{
+        private TextView titleTv,categoryTv;
+        private ImageView icImgView,mainImg;
+        public FavoriteHolder(View itemView,int viewType) {
+            super(itemView);
+            titleTv=(TextView)itemView.findViewById(R.id.faveTitleTv);
+            categoryTv=(TextView)itemView.findViewById(R.id.faveCategory);
+            icImgView=(ImageView)itemView.findViewById(R.id.faveOnImgView);
+            mainImg=(ImageView)itemView.findViewById(R.id.faveImgView);
+        }
+
+        @Override
+        public void bind(Favorites object) {
+            titleTv.setText(object.getFaveTitle());
+            categoryTv.setText(object.getCategory());
+            Picasso.with(itemView.getContext()).load(object.getImgUrl()).fit().into(mainImg);
+            icImgView.setImageResource(object.getImgResId());
+        }
+    }
     /** Will create viewHolder for each type of lists */
 }
