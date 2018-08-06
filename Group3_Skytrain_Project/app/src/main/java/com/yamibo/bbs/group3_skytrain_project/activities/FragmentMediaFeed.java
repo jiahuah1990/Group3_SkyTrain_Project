@@ -38,6 +38,7 @@ public class FragmentMediaFeed extends Fragment implements MultiViewRecAdapter.O
     private List<BaseModel> feedsList;
     private ProgressDialog dialog;
     private static final String RSS_MEDIA_LINK="https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.translink.ca%2FUtilities%2FMedia-RSS.aspx";
+    private static int pos=0;
 
     private ToggleButton starOffBtnImg,starOnBtnImg;
     private View view;
@@ -89,7 +90,6 @@ public class FragmentMediaFeed extends Fragment implements MultiViewRecAdapter.O
                     JSONArray items=response.getJSONArray("items");
                     for(int i=0;i<items.length();i++){
                         JSONObject itemsObj=items.getJSONObject(i);
-
                         TranslinkFeed feeds = new TranslinkFeed(itemsObj.getString("title"),
                                 "Publish Date: "+itemsObj.getString("pubDate"),
                                 itemsObj.getString("content"), itemsObj.getString("categories"));
@@ -113,6 +113,7 @@ public class FragmentMediaFeed extends Fragment implements MultiViewRecAdapter.O
 
     @Override
     public void onItemClick(int position) {
+        pos=position;
         faveBtn();
 
     }

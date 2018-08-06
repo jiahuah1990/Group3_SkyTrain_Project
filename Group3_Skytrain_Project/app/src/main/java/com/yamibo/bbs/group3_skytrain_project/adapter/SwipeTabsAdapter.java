@@ -6,10 +6,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.yamibo.bbs.group3_skytrain_project.activities.FragmentFavorites;
 import com.yamibo.bbs.group3_skytrain_project.activities.FragmentTransit;
-import com.yamibo.bbs.group3_skytrain_project.activities.FragmentTripPlan;
+import com.yamibo.bbs.group3_skytrain_project.activities.FragmentTripPlanner;
 
 public class SwipeTabsAdapter extends FragmentPagerAdapter {
-    private String[] titles={"Trip Planner","Transit Schedule","Favorites" };
+    private String[] titles={"Trip Planner","Schedule & Maps","Favorites" };
 
     public SwipeTabsAdapter(FragmentManager fragMg){
         super(fragMg);
@@ -18,7 +18,7 @@ public class SwipeTabsAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new FragmentTripPlan();
+                return new FragmentTripPlanner();
             case 1:
                 return new FragmentTransit();
           /*  case 2:

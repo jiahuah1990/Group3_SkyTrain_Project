@@ -59,7 +59,7 @@ public class MainActivity extends AppBaseActivity{
         }
     }
     private void initTabFragments(){
-        tripFrag=getFragmentManager().findFragmentById(R.layout.tab_trip_plan);
+        tripFrag=getFragmentManager().findFragmentById(R.layout.tab_trip_planner);
         transitFrag=getFragmentManager().findFragmentById(R.layout.tab_transit);
         feedFrag=getFragmentManager().findFragmentById(R.layout.fragment_news_feed);
     }

@@ -56,6 +56,6 @@ public class ImgPagerAdp extends PagerAdapter {
         ((ViewPager)container).removeView((View)(object));
     }
     public void imgViewInit(){
-        imgView1=(ImageView)v.findViewById(R.id.pagerImgView);
+       // imgView1=(ImageView)v.findViewById(R.id.pagerImgView);
     }
 }

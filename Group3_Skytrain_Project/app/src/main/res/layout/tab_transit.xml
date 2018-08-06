@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-<!--    <android.support.v4.view.ViewPager
-        android:id="@+id/transitVp"
-        android:layout_margin="5dp"
-        android:background="@android:color/transparent"
-        android:layout_width="wrap_content"
-        android:layout_height="260dp">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    </android.support.v4.view.ViewPager>-->
-
-    <com.yamibo.bbs.group3_skytrain_project.activities.ExtendedViewPager
-        android:src="@drawable/skytrain_map"
-        android:layout_margin="5dp"
-        android:id="@+id/extendedPager"
-        android:layout_width="wrap_content"
-        android:layout_height="300dp"
-        android:layout_centerVertical="true"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/viewPagersRecView"
+            android:layout_margin="3dp"
+            android:padding="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <include layout="@layout/list_view_pagers"/>
+    </LinearLayout>
 </RelativeLayout>

@@ -8,6 +8,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -30,6 +31,19 @@ public class Fragment_Tabs extends Fragment {
         viewPager=(ViewPager)v.findViewById(R.id.viewPagerForTabs);
         viewPager.setAdapter(new SwipeTabsAdapter(getChildFragmentManager()));
 
+        viewPager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
+        viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels){
+                viewPager.getParent().requestDisallowInterceptTouchEvent(true);
+            }
+        });
         tabLayout=(TabLayout)v.findViewById(R.id.tabLayout);
         tabLayout.post(new Runnable() {
             @Override
