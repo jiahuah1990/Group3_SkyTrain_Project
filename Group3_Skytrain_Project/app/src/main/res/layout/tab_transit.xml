@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <android.support.v4.view.ViewPager
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+<!--    <android.support.v4.view.ViewPager
         android:id="@+id/transitVp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_margin="5dp"
+        android:background="@android:color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="260dp">
 
-    </android.support.v4.view.ViewPager>
-</android.support.constraint.ConstraintLayout>
+    </android.support.v4.view.ViewPager>-->
+
+    <com.yamibo.bbs.group3_skytrain_project.activities.ExtendedViewPager
+        android:src="@drawable/skytrain_map"
+        android:layout_margin="5dp"
+        android:id="@+id/extendedPager"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:layout_centerVertical="true"/>
+</RelativeLayout>

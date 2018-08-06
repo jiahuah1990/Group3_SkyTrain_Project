@@ -3,10 +3,12 @@ package com.yamibo.bbs.group3_skytrain_project.activities;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.yamibo.bbs.group3_skytrain_project.R;
 import com.yamibo.bbs.group3_skytrain_project.adapter.ImgPagerAdp;
@@ -24,8 +26,9 @@ public class NestedPagerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         v=inflater.inflate(R.layout.fragment_pager_schedule,container,false);
-        pagerAdp=new ImgPagerAdp(getContext(),imgIdList);
+
         return v;
     }
+
 }
 

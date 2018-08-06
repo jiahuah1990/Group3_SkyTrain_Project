@@ -13,7 +13,7 @@ public class TranslinkFeed implements BaseModel,Serializable{
 
     private String timeStamp,status,location,schedule,title;
     private String category;
-    private int travelTime,speedKmph,linkedId;
+    private int travelTime,speedKmph,linkedId,imgResId;
 
     @Element
     private String feedsContent;
@@ -32,6 +32,10 @@ public class TranslinkFeed implements BaseModel,Serializable{
         this.status = status;
        /* this.feed = feed;
         this.items = items;*/
+    }
+    public TranslinkFeed(String title,int imgResId){
+        this.title=title;
+        this.imgResId=imgResId;
     }
 
     @Override
@@ -117,5 +121,13 @@ public class TranslinkFeed implements BaseModel,Serializable{
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public int getImgResId() {
+        return imgResId;
+    }
+
+    public void setImgResId(int imgResId) {
+        this.imgResId = imgResId;
     }
 }

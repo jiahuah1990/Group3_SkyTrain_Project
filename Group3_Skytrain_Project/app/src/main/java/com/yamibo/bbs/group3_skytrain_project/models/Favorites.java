@@ -8,9 +8,10 @@ public class Favorites implements BaseModel {
     private String category;
     private int imgResId;
 
-    public Favorites(String faveTitle,String category) {
+    public Favorites(String faveTitle,String category,int imgResId) {
         this.faveTitle=faveTitle;
         this.category=category;
+        this.imgResId=imgResId;
     }
 
     @Override

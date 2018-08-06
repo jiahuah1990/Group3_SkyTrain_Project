@@ -16,6 +16,8 @@ import android.widget.ToggleButton;
 import com.yamibo.bbs.group3_skytrain_project.R;
 import com.yamibo.bbs.group3_skytrain_project.adapter.MultiViewRecAdapter;
 import com.yamibo.bbs.group3_skytrain_project.models.BaseModel;
+import com.yamibo.bbs.group3_skytrain_project.models.Favorites;
+import com.yamibo.bbs.group3_skytrain_project.models.TranslinkFeed;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +31,8 @@ public class FragmentFavorites extends Fragment implements MultiViewRecAdapter.O
     private List<BaseModel> faveList;
     private static ToggleButton faveOnBtnImg;
     private View view;
+    private ImageView faveImg;
+
     public FragmentFavorites() {
         // Required empty public constructor
     }
@@ -36,7 +40,7 @@ public class FragmentFavorites extends Fragment implements MultiViewRecAdapter.O
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_favorites, container, false);
+        return view=inflater.inflate(R.layout.fragment_favorites, container, false);
     }
 
     @Override
@@ -44,10 +48,26 @@ public class FragmentFavorites extends Fragment implements MultiViewRecAdapter.O
         super.onViewCreated(v,savedInstanceState);
         recView=(RecyclerView)v.findViewById(R.id.faveRecView);
         recView.setLayoutManager(new GridLayoutManager(getContext(),2));
+        faveImg=(ImageView)v.findViewById(R.id.faveImgView);
         faveOnBtnImg=(ToggleButton) v.findViewById(R.id.faveOnImgView);
-
         faveList=new ArrayList<>();
 
+       // getFavedEvent();
+
+    }
+    private void getFavedEvent(){
+        //FragmentEventFeed fragEvent=new FragmentEventFeed();
+        int pos=+1;
+        int imgs=getArguments().getBundle("CATEGORY_ICON").getInt("CATEGORY_ICON");
+        String eventTitle=getArguments().getString("EVENT_TITLE");
+        String category=getArguments().getString("CATEGORY");
+        int position=getArguments().getInt("FAVED_ITEM_POS");
+
+        faveImg.setImageResource(imgs);
+
+        Favorites favedFeeds=new Favorites(eventTitle,category,imgs);
+
+        faveList.add(favedFeeds);
         recAdp=new MultiViewRecAdapter(faveList,getContext());
         recView.setAdapter(recAdp);
 
@@ -56,7 +76,9 @@ public class FragmentFavorites extends Fragment implements MultiViewRecAdapter.O
         faveOnBtnImg.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+                if(isChecked){
+                    faveImg.setVisibility(View.GONE);
+                }
             }
         });
     }
@@ -64,5 +86,6 @@ public class FragmentFavorites extends Fragment implements MultiViewRecAdapter.O
     @Override
     public void onItemClick(int position) {
         faveBtnOnClicks();
+
     }
 }

@@ -12,5 +12,5 @@
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
         android:padding="3dp"/>
-
+       <include layout="@layout/list_favorites"/>
 </FrameLayout>
