@@ -102,7 +102,6 @@ public class FragmentEventFeed extends Fragment implements MultiViewRecAdapter.O
         faveBtnOff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
             }
         });
     }

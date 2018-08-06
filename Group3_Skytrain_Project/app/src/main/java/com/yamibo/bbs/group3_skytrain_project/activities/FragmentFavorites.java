@@ -36,8 +36,6 @@ public class FragmentFavorites extends Fragment implements MultiViewRecAdapter.O
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        faveBtnOnclicks();
         return inflater.inflate(R.layout.fragment_favorites, container, false);
     }
 
@@ -54,7 +52,7 @@ public class FragmentFavorites extends Fragment implements MultiViewRecAdapter.O
         recView.setAdapter(recAdp);
 
     }
-    private void faveBtnOnclicks(){
+    private void faveBtnOnClicks(){
         faveOnBtnImg.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -65,6 +63,6 @@ public class FragmentFavorites extends Fragment implements MultiViewRecAdapter.O
 
     @Override
     public void onItemClick(int position) {
-        faveBtnOnclicks();
+        faveBtnOnClicks();
     }
 }
