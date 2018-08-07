@@ -17,6 +17,8 @@ import android.widget.FrameLayout;
 
 import com.yamibo.bbs.group3_skytrain_project.R;
 
+import Utils.AlertDialogManager;
+
 public abstract class AppBaseActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
     private FrameLayout view_stub; //This is the framelayout to keep your content view
     private NavigationView navigation_view; // The new navigation view from Android Design Library. Can inflate menu resources. Easy
@@ -128,8 +130,9 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
                 startActivity(intent5);
                 break;
             case R.id.m_notifys:
-                Intent intent6=new Intent(this,MainActivity.class);
-                startActivity(intent6);
+                AlertDialogManager.getInstance(this).notification();
+
+                break;
         }
         return false;
     }

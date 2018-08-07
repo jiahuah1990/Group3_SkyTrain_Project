@@ -107,7 +107,7 @@ public class AlertDialogManager {
     }
     public void notification() {
         Context notifContext=null;
-        String mainMsg = "Notification message from the sensor...";
+        String mainMsg = "Notification message from TransLink Vancouver...";
 
         //Create Notification Builder and setting properties
         Notification.Builder notifBuilder =
