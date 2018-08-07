@@ -42,6 +42,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="4dp"
+        clipToPadding="false"
+        android:layout_marginTop="0dp"
         android:layout_alignParentBottom="true"
         app:itemBackground="@android:color/white"
         app:itemIconTint="@drawable/bottom_nav_btn_states"

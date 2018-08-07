@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.yamibo.bbs.group3_skytrain_project.R;
 import com.yamibo.bbs.group3_skytrain_project.activities.ExtendedViewPager;
+import com.yamibo.bbs.group3_skytrain_project.activities.FragmentTransit;
 import com.yamibo.bbs.group3_skytrain_project.activities.TouchImgView1;
 import com.yamibo.bbs.group3_skytrain_project.models.BaseModel;
 import Utils.RecViewConstants;
@@ -168,34 +169,43 @@ public class MultiViewRecAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public class ViewPagerHolder extends BaseViewHolder<ExtendedViewPager>{
 
         List<BaseModel> imgList =new ArrayList<>();
-        private ExtendedViewPager extendedScheduleVP;
+        private ExtendedViewPager extendedScheduleVP,extendedMapVP;
         private TextView pagersTitle;
+        private Context context;
         private ViewGroup container;
         public ViewPagerHolder(View itemView,int viewType) {
             super(itemView);
             extendedScheduleVP =(ExtendedViewPager)itemView.findViewById(R.id.extendedSchedulePager);
-            //extendedMapVP=(ExtendedViewPager)itemView.findViewById(R.id.extendedMapPager);
+            extendedMapVP=(ExtendedViewPager)itemView.findViewById(R.id.extendedSchedulePager);
 
             pagersTitle=(TextView)itemView.findViewById(R.id.pagerTitles);
+            //extendedScheduleVP=new ExtendedViewPager(context);
         }
 
         @Override
         public void bind(ExtendedViewPager object) {
             int pos=getAdapterPosition();
             extendedScheduleVP.setId(pos);
+            //extendedMapVP.setId(pos);
+            pagersTitle.setText(object.getTitle());
+           String title =pagersTitle.getText().toString();
+            //pagersTitle.setText("SkyTrain And SeaBus Schedules");
+            switch (title){
+                case "SkyTrain And SeaBus Schedules":
+                    extendedScheduleVP.setAdapter(object.getScheduleAdp());
+                    break;
+                case "SkyTrain, SeaBus, And Bus Maps":
+                    extendedScheduleVP.setAdapter(new ZoomableMapAdapter());
+                    break;
+            }
 
         }
     }
-   /* //View pager adapter
-    static class ZoomableImgAdapter extends PagerAdapter {
-        //private LayoutInflater inflater;
-        //private ZoomableScheduleAdapter zoomablePagerAdp;
-       // private ExtendedViewPager extendedViewPager;
-        //private Context context;
-        //private List<BaseModel> imgList;
-        private static int[] schedules={R.drawable.seabus_schedule1,
-                R.drawable.seabus_schedule2,R.drawable.schedule3};
 
+    /** Will create viewHolder for each type of lists */
+    static class ZoomableScheduleAdapter extends PagerAdapter {
+        private static int[] schedules={R.drawable.seabus_schedule1,R.drawable.seabus_schedule2
+                ,R.drawable.schedule3};
         @Override
         public int getCount() {
             return schedules.length;
@@ -206,8 +216,7 @@ public class MultiViewRecAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             TouchImgView1 schedule=new TouchImgView1(container.getContext());
 
             schedule.setImageResource(schedules[position]);
-            container.addView(schedule, LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.MATCH_PARENT);
+            container.addView(schedule, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             return schedule;
         }
 
@@ -220,8 +229,36 @@ public class MultiViewRecAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public boolean isViewFromObject(View view, Object object) {
             return view == object;
         }
-    }*/
-    /** Will create viewHolder for each type of lists */
 
+    }
+    static class ZoomableMapAdapter extends PagerAdapter {
 
+        private static int[] maps = { R.drawable.skytrain_map, R.drawable.sea_bus,
+                R.mipmap.bline_sea_bus};
+        @Override
+        public int getCount() {
+            return maps.length;
+        }
+
+        @Override
+        public View instantiateItem(ViewGroup container, int position) {
+            TouchImgView1 img = new TouchImgView1(container.getContext());
+
+            img.setImageResource(maps[position]);
+            container.addView(img, LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT);
+            return img;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            container.removeView((View) object);
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view == object;
+        }
+
+    }
 }

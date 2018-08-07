@@ -15,21 +15,44 @@ import Utils.RecViewConstants;
 
 
 public class ExtendedViewPager extends ViewPager implements BaseModel{
-    private View v;
+    private String title;
+    private int imgResId,backBtnId,forthBtnId;
     private LayoutInflater inflater;
     private ExtendedViewPager extendedVP;
+    private FragmentTransit.ZoomableScheduleAdapter scheduleAdp;
+    private FragmentTransit.ZoomableMapAdapter mapAdp;
     public ExtendedViewPager(Context context) {
         super(context);
+    }
+
+    public ExtendedViewPager(Context context,String title,FragmentTransit.ZoomableScheduleAdapter scheduleAdp,
+                             int backBtnId,int forthBtnId) {
+        super(context);
+        this.title=title;
+        this.scheduleAdp=scheduleAdp;
+        this.backBtnId=backBtnId;
+        this.forthBtnId=forthBtnId;
+    }
+
+    public ExtendedViewPager(Context context,String title,
+                             int backBtnId,int forthBtnId) {
+        super(context);
+        this.title=title;
+        this.mapAdp=new FragmentTransit.ZoomableMapAdapter();
+        this.scheduleAdp=new FragmentTransit.ZoomableScheduleAdapter();
+        this.backBtnId=backBtnId;
+        this.forthBtnId=forthBtnId;
+
     }
 
     public ExtendedViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-    public ExtendedViewPager(Context context,ViewGroup container, LayoutInflater inflater){
+   /* public ExtendedViewPager(Context context,ViewGroup container, LayoutInflater inflater){
         super(context);
         this.inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.extendedVP.v=inflater.inflate(R.layout.pager_items,container);
-    }
+    }*/
     @Override
     protected boolean canScroll(View v, boolean checkV, int dx, int x, int y) {
         if (v instanceof TouchImgView1) {
@@ -44,9 +67,56 @@ public class ExtendedViewPager extends ViewPager implements BaseModel{
             return super.canScroll(v, checkV, dx, x, y);
         }
     }
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getImgResId() {
+        return imgResId;
+    }
+
+    public void setImgResId(int imgResId) {
+        this.imgResId = imgResId;
+    }
+
+    public int getBackBtnId() {
+        return backBtnId;
+    }
+
+    public void setBackBtnId(int backBtnId) {
+        this.backBtnId = backBtnId;
+    }
+
+    public int getForthBtnId() {
+        return forthBtnId;
+    }
+
+    public void setForthBtnId(int forthBtnId) {
+        this.forthBtnId = forthBtnId;
+    }
 
     @Override
     public int getViewType() {
         return RecViewConstants.ViewType.VIEW_PAGER_TYPE;
+    }
+
+    public FragmentTransit.ZoomableScheduleAdapter getScheduleAdp() {
+        return scheduleAdp;
+    }
+
+    public void setScheduleAdp(FragmentTransit.ZoomableScheduleAdapter scheduleAdp) {
+        this.scheduleAdp = scheduleAdp;
+    }
+
+    public FragmentTransit.ZoomableMapAdapter getMapAdp() {
+        return mapAdp;
+    }
+
+    public void setMapAdp(FragmentTransit.ZoomableMapAdapter mapAdp) {
+        this.mapAdp = mapAdp;
     }
 }
