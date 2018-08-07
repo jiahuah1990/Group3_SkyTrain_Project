@@ -35,17 +35,25 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class StopDetailActivity extends AppCompatActivity {
+
+
     private CardAdapter_NearbyRoutes mCardAdapterNearbyRoutes;
     private TextView stop_no_tv;
     private TextView stop_name_tv;
     private List<Route> data;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager layoutManager;
+    private BusStopNoActivities busStop;
+
     String selectedStop = "60980";
+    int selectedStop2=51042;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stop_detail);
+
+        busStop=BusStopNoActivities.getInstance();
+
      setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -63,8 +71,6 @@ public class StopDetailActivity extends AppCompatActivity {
         stop_name_tv = findViewById(R.id.stop_name);
         stop_no_tv.setText(selectedStop);
         stop_name_tv.setText(name);
-
-
 
 
         Retrofit retrofit = new Retrofit.Builder()

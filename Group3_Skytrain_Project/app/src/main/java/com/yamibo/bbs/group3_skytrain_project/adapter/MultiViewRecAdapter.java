@@ -1,7 +1,6 @@
 package com.yamibo.bbs.group3_skytrain_project.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.yamibo.bbs.group3_skytrain_project.R;
 import com.yamibo.bbs.group3_skytrain_project.activities.ExtendedViewPager;
-import com.yamibo.bbs.group3_skytrain_project.activities.FragmentTransit;
 import com.yamibo.bbs.group3_skytrain_project.activities.TouchImgView1;
 import com.yamibo.bbs.group3_skytrain_project.models.BaseModel;
 import Utils.RecViewConstants;
@@ -51,7 +49,7 @@ public class MultiViewRecAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         switch (viewType) {
             case RecViewConstants.ViewType.STOPS_TYPE:
                 v = LayoutInflater.from(parent.getContext()).inflate
-                    (R.layout.stops_list, parent, false);
+                    (R.layout.list_bus_stop_info, parent, false);
                 return new StopsHolder(v,viewType);
             case RecViewConstants.ViewType.FEED_TYPE:
                 v = LayoutInflater.from(parent.getContext()).inflate
@@ -132,16 +130,28 @@ public class MultiViewRecAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
     }
     public class StopsHolder extends BaseViewHolder<Stop> {
-        private TextView mItem;
+        private TextView stopNumTv,stopNameTv,atStreeTv,
+                departTv,nextBusTv, directionBoundTv,countdownTv;
 
         public StopsHolder(View itemView,int viewType) {
             super(itemView);
-            mItem = (TextView) itemView.findViewById(R.id.item_card);
+            stopNameTv = (TextView) itemView.findViewById(R.id.stopNameTv);
+            stopNumTv=(TextView)itemView.findViewById(R.id.stop_num);
+            atStreeTv=(TextView)itemView.findViewById(R.id.atStreetTv);
+            departTv=(TextView)itemView.findViewById(R.id.departTv);
+            nextBusTv=(TextView)itemView.findViewById(R.id.nextBusTv);
+            directionBoundTv=(TextView)itemView.findViewById(R.id.directionTv);
+            countdownTv=(TextView)itemView.findViewById(R.id.countDownTv);
         }
 
         @Override
         public void bind(Stop object) {
-            mItem.setText(object.getStopNo());
+            stopNumTv.setText(object.getStopNo());
+            stopNameTv.setText(object.getStopsName());
+            atStreeTv.setText(object.getAtStreet());
+            departTv.setText(object.getExpectedLeaveTime());
+            countdownTv.setText(object.getExpectedCountDown());
+            nextBusTv.setText(object.getNextBus());
         }
     }
 

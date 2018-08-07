@@ -7,6 +7,9 @@ public class Stop implements BaseModel {
     private String Routes,stopsName;
     private double Latitude,Longitude;
     private int StopNo,Distance, WheelchairAccess;
+    private String expectedLeaveTime;
+    private int expectedCountDown;
+    private String nextBus;
 
     public Stop(int stopNo, int distance, int wheelchairAccess, String bayNo, String city, String onStreet, String atStreet, String routes, double lat, double longt) {
         this.StopNo = stopNo;
@@ -21,6 +24,9 @@ public class Stop implements BaseModel {
         this.Longitude = longt;
     }
 
+    public Stop(int stopNo){
+        this.StopNo=stopNo;
+    }
     public Stop(String stopsName){
         this.stopsName=stopsName;
     }
@@ -109,6 +115,34 @@ public class Stop implements BaseModel {
     }
     public String getStopsName(){
         return stopsName;
+    }
+
+    public void setStopsName(String stopsName) {
+        this.stopsName = stopsName;
+    }
+
+    public String getExpectedLeaveTime() {
+        return expectedLeaveTime;
+    }
+
+    public void setExpectedLeaveTime(String expectedLeaveTime) {
+        this.expectedLeaveTime = expectedLeaveTime;
+    }
+
+    public int getExpectedCountDown() {
+        return expectedCountDown;
+    }
+
+    public void setExpectedCountDown(int expectedCountDown) {
+        this.expectedCountDown = expectedCountDown;
+    }
+
+    public String getNextBus() {
+        return nextBus;
+    }
+
+    public void setNextBus(String nextBus) {
+        this.nextBus = nextBus;
     }
 
     @Override
