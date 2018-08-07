@@ -10,6 +10,8 @@ public class Stop implements BaseModel {
     private String expectedLeaveTime;
     private int expectedCountDown;
     private String nextBus;
+    private String RoutNum,destination;
+    String direction;
 
     public Stop(int stopNo, int distance, int wheelchairAccess, String bayNo, String city, String onStreet, String atStreet, String routes, double lat, double longt) {
         this.StopNo = stopNo;
@@ -27,8 +29,39 @@ public class Stop implements BaseModel {
     public Stop(int stopNo){
         this.StopNo=stopNo;
     }
-    public Stop(String stopsName){
+    public Stop(int stopNo,String expectedLeaveTime,int expectedCountDown,
+                String routNum,String stopsName, String destination, String direction){
+        this.StopNo=stopNo;
+        this.expectedCountDown=expectedCountDown;
+        this.expectedLeaveTime=expectedLeaveTime;
+        this.RoutNum=routNum;
         this.stopsName=stopsName;
+        this.destination=destination;
+        this.direction=direction;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
+    public String getRoutNum() {
+        return RoutNum;
+    }
+
+    public void setRoutNum(String routNum) {
+        RoutNum = routNum;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
     }
 
     public int getStopNo() {

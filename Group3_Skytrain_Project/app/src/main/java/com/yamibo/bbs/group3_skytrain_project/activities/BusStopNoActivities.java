@@ -42,6 +42,8 @@ public class BusStopNoActivities extends AppBaseActivity {
     private RecyclerView stopRecView;
     private MultiViewRecAdapter recAdapter;
     private ProgressDialog dialog;
+
+    private static int userIn;
     private static int stopNum=0;
     private static BusStopNoActivities busStop;
 
@@ -68,21 +70,66 @@ public class BusStopNoActivities extends AppBaseActivity {
             public void onClick(View view) {
                 getBusStops();
                 if(getBusStops()!=0){
-                    //getStopDetail();
-                }else{
+                    getStopDetail();
+                }else if(usrInput.isEmpty()){
+                    Toast.makeText(BusStopNoActivities.this,
+                            "You haven't enter anything yet",Toast.LENGTH_SHORT).show();
+                    dialog.hide();
+                }else if(getBusStops()==0){
                     Toast.makeText(BusStopNoActivities.this,
                             "Oops! Not in service",Toast.LENGTH_SHORT).show();
+                    dialog.hide();
                 }
             }
 
         });
     }
     private void getStopDetail(){
-        JsonObjectRequest request=new JsonObjectRequest(Request.Method.GET, ESTIMATE_STOP_URL, null,
-                new Response.Listener<JSONObject>() {
+        dialog.setMessage("Loading...");
+        dialog.show();
+        JsonArrayRequest request=new JsonArrayRequest(Request.Method.GET, ESTIMATE_STOP_URL, null,
+                new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(JSONArray response) {
+                        JSONObject stopEstimateObj=new JSONObject();
+                        String routeName= ""; String direction="";
+                        try {
+                        for(int i=0;i<response.length();i++){
 
+                              stopEstimateObj=response.getJSONObject(i);
+                               routeName = stopEstimateObj.getString("RouteName");
+                            direction=stopEstimateObj.getString("Direction");
+
+                       }
+                        JSONArray schedules=stopEstimateObj.getJSONArray("Schedules");
+                       for(int i=0;i<schedules.length();i++){
+                           JSONObject shceduleObj=schedules.getJSONObject(i);
+                           String destination=shceduleObj.getString("Destination");
+                           String leaveTime=shceduleObj.getString("ExpectedLeaveTime");
+                           int countdownMins=shceduleObj.getInt("ExpectedCountdown");
+                           String routeNum=shceduleObj.getString("RouteNo");
+
+                           if(getBusStops()!=0){
+                               Stop stops=new Stop(stopNum,leaveTime,countdownMins,routeNum,
+                                       routeName,destination,direction);
+                               stopsList.add(stops);
+
+                           }else{
+                               Toast.makeText(BusStopNoActivities.this,"Service Error!",
+                                       Toast.LENGTH_SHORT).show();
+                               dialog.hide();
+                           }
+                          /* Stop stops=new Stop(stopNum,leaveTime,countdownMins,routeNum,
+                                   routeName,destination,direction);*/
+
+                       }
+                            dialog.hide();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        recAdapter=new MultiViewRecAdapter(stopsList,BusStopNoActivities.this);
+                        stopRecView.setAdapter(recAdapter);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -102,13 +149,19 @@ public class BusStopNoActivities extends AppBaseActivity {
     public int getBusStops(){
         dialog.setMessage("Searching..."); dialog.show();
         usrInput=inputText.getText().toString();//user input
-        int userIn=Integer.parseInt(usrInput);
+        if(!usrInput.isEmpty()){
+            userIn=Integer.parseInt(usrInput);
+            dialog.hide();
+        }else{
+            Toast.makeText(BusStopNoActivities.this,"You haven't enter anything yet",Toast.LENGTH_SHORT).show();
+        }
+
         JsonArrayRequest request=new JsonArrayRequest(Request.Method.GET, STOPS_API_URL, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
                         try{
-                            JSONObject jObj=new JSONObject();
+                            /*JSONObject jObj=new JSONObject();
                             String msg=jObj.getString("Message");
                             String errorCode=jObj.getString("Code");
                             if(jObj.has(msg)||jObj.has(errorCode)){
@@ -117,21 +170,22 @@ public class BusStopNoActivities extends AppBaseActivity {
                                             "No stop estimates found so far",
                                             Toast.LENGTH_SHORT).show();
                                 }
-                            }else{
-                                for(int i=0;i<response.length();i++){
+                            }else{*/
+                            for(int i=0;i<response.length();i++){
                                     JSONObject stopObj=response.getJSONObject(i);
                                     int stopNo=stopObj.getInt("StopNo");
 
-                                    if(userIn!=stopNo||usrInput.isEmpty()){
+                                    if(userIn!=stopNo){
                                         Toast.makeText(BusStopNoActivities.this,
                                                 "Sorry, can't find this stop number",
                                                 Toast.LENGTH_SHORT).show();
                                         dialog.hide();
                                     }
                                     stopNum=stopNo;
-                                }
-                                dialog.hide();
+
                             }
+                            dialog.hide();
+
                         }catch (JSONException je){
                             je.printStackTrace();
                         }
