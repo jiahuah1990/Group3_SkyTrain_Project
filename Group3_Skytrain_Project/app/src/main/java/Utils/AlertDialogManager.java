@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.CountDownTimer;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AlertDialog;
 
@@ -60,7 +61,50 @@ public class AlertDialogManager {
         final AlertDialog alert2=dialogBuilder.create();
         alert2.show();
     }
+    //Alert Dialog
+    public void alertDialog() {
+        dialogBuilder = new AlertDialog.Builder(context);
+        //Set title
+        dialogBuilder.setTitle("Warning!");
 
+        //Set dialogue Message
+        dialogBuilder.setCancelable(false).setMessage("")
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //continue with delete
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //if this button is clicked, just close
+                //the dialog
+                dialog.cancel();
+            }
+
+            //AlertDialog dialog = dialogBuilder.create();
+
+        }).setIcon(android.R.drawable.ic_dialog_alert);
+        //Create alert dialog for countdown
+        final AlertDialog alert2=dialogBuilder.create();
+        alert2.show();
+        CountDownTimer countdown=new CountDownTimer(300000,1000){
+            @Override
+            public void onTick(long l) {
+                alert2.setMessage("Living organism inside your car!\nStarts Countdown"
+                        +String.format("\n%d:%d mins",
+                        TimeUnit.MILLISECONDS.toMinutes(l),
+                        TimeUnit.MILLISECONDS.toSeconds(l) - TimeUnit
+                                .MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(l))));
+            }
+
+            @Override
+            public void onFinish() {
+                alert2.setMessage("Finished!");
+            }
+
+        }.start();
+    }
     public void notification() {
         Context notifContext=null;
         String mainMsg = "Notification message from the sensor...";

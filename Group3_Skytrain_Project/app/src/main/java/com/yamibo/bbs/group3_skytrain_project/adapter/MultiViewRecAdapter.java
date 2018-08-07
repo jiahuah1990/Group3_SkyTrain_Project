@@ -116,7 +116,6 @@ public class MultiViewRecAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             timeStampTv.setText(object.getTimeStamp());
             categoryTv.setText(object.getCategory());
 
-
             if(categoryTv.getText().toString().equals("News")){
                 icFeedsImgView.setImageResource(R.drawable.ic_news_feed);
             }else if(categoryTv.getText().toString().equals("")){

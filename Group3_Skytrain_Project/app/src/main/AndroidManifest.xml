@@ -41,6 +41,7 @@
         <activity android:name=".activities.MainActivity" />
         <activity android:name=".activities.Feedback"></activity>
         <activity android:name=".activities.BusStopNoActivities" />
+        <activity android:name=".activities.TripPlanShowing"></activity>
         <activity
             android:name=".activities.LocationActivity"
             android:label="Distance" />

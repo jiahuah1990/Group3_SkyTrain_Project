@@ -12,7 +12,7 @@
 
     <item android:id="@+id/m_busN"
         android:icon="@drawable/bus_icon"
-        android:title="Bus No"
+        android:title="Location"
         />
     <item android:id="@+id/m_nearby"
         android:icon="@drawable/nearby_icon"

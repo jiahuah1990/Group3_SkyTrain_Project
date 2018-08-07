@@ -135,6 +135,7 @@ public class FragmentNewsFeed extends android.support.v4.app.Fragment implements
 
     @Override
     public void onItemClick(int position) {
+
         faveBtn();
     }
 
