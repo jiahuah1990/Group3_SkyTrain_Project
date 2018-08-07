@@ -34,25 +34,18 @@ public class ExtendedViewPager extends ViewPager implements BaseModel{
         this.forthBtnId=forthBtnId;
     }
 
-    public ExtendedViewPager(Context context,String title,
-                             int backBtnId,int forthBtnId) {
+    public ExtendedViewPager(Context context,String title) {
         super(context);
         this.title=title;
         this.mapAdp=new FragmentTransit.ZoomableMapAdapter();
         this.scheduleAdp=new FragmentTransit.ZoomableScheduleAdapter();
-        this.backBtnId=backBtnId;
-        this.forthBtnId=forthBtnId;
 
     }
 
     public ExtendedViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-   /* public ExtendedViewPager(Context context,ViewGroup container, LayoutInflater inflater){
-        super(context);
-        this.inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.extendedVP.v=inflater.inflate(R.layout.pager_items,container);
-    }*/
+
     @Override
     protected boolean canScroll(View v, boolean checkV, int dx, int x, int y) {
         if (v instanceof TouchImgView1) {

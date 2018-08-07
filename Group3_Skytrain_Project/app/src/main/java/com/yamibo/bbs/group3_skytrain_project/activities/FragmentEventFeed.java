@@ -67,7 +67,6 @@ public class FragmentEventFeed extends Fragment implements MultiViewRecAdapter.O
         eventRecView=(RecyclerView) v.findViewById(R.id.event_feed_rec);
         eventRecView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-
         faveBtnOff=(ToggleButton) v.findViewById(R.id.faveOffBtn);
         feedsList=new ArrayList<>();
 

@@ -18,8 +18,8 @@
             android:background="@drawable/toggle_btn_check"
             android:textOn=""
             android:textOff=""
-            android:focusableInTouchMode="false"
-            android:layout_centerVertical="true" />
+            android:focusableInTouchMode="true"
+            android:layout_centerVertical="false" />
         <ImageView
             android:src="@drawable/translink_nav_logo"
             app:layout_constraintTop_toTopOf="parent"

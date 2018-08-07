@@ -36,6 +36,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import Utils.AlertDialogManager;
 import Utils.VolleySingleton;
 
 import static Utils.AppConstants.*;
@@ -44,6 +45,7 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 public class FragmentNewsFeed extends android.support.v4.app.Fragment implements MultiViewRecAdapter.OnItemClickListener{
     private static final String RSS_NEWSFEED_LINK=
             "https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.translink.ca%2Fen%2FUtilities%2FWhatsNewRSS.aspx";
+    private AlertDialogManager dialogMgr;
 
     private static RecyclerView feedRecView;
     private static View v;
@@ -61,6 +63,7 @@ public class FragmentNewsFeed extends android.support.v4.app.Fragment implements
     public View onCreateView
             (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_news_feed, container, false);
+        dialogMgr=AlertDialogManager.getInstance(getContext());
         return v;
     }
 
@@ -86,7 +89,6 @@ public class FragmentNewsFeed extends android.support.v4.app.Fragment implements
 
             }
         });
-
     }
     private void loadNewsRSS(){
         dialog.setMessage("Loading...");

@@ -32,7 +32,8 @@ public class FragmentFavorites extends Fragment implements MultiViewRecAdapter.O
     private static ToggleButton faveOnBtnImg;
     private View view;
     private ImageView faveImg;
-
+    private int[] imgResIds;
+    private String[] titleArr;
     public FragmentFavorites() {
         // Required empty public constructor
     }
@@ -52,22 +53,25 @@ public class FragmentFavorites extends Fragment implements MultiViewRecAdapter.O
         faveOnBtnImg=(ToggleButton) v.findViewById(R.id.faveOnImgView);
         faveList=new ArrayList<>();
 
-       // getFavedEvent();
+
+         getFavedEvent();
 
     }
     private void getFavedEvent(){
         //FragmentEventFeed fragEvent=new FragmentEventFeed();
-        int pos=+1;
+       /* int pos=+1;
         int imgs=getArguments().getBundle("CATEGORY_ICON").getInt("CATEGORY_ICON");
         String eventTitle=getArguments().getString("EVENT_TITLE");
         String category=getArguments().getString("CATEGORY");
-        int position=getArguments().getInt("FAVED_ITEM_POS");
+        int position=getArguments().getInt("FAVED_ITEM_POS");*/
+        imgResIds= new int[]{R.mipmap.public_transit, R.drawable.translink,R.mipmap.public_transit_1};
+        titleArr=new String[]{"public transit 1","TransLink Logo","TransLink SkyTrain"};
+        for(int i=0;i<imgResIds.length;i++){
 
-        faveImg.setImageResource(imgs);
-
-        Favorites favedFeeds=new Favorites(eventTitle,category,imgs);
-
-        faveList.add(favedFeeds);
+            Favorites faves=new Favorites(titleArr[i],"",imgResIds[i]);
+            faveList.add(faves);
+        }
+        //Favorites favedFeeds=new Favorites(eventTitle,category,imgs);
         recAdp=new MultiViewRecAdapter(faveList,getContext());
         recView.setAdapter(recAdp);
 

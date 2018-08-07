@@ -116,6 +116,7 @@ public class MultiViewRecAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             timeStampTv.setText(object.getTimeStamp());
             categoryTv.setText(object.getCategory());
 
+
             if(categoryTv.getText().toString().equals("News")){
                 icFeedsImgView.setImageResource(R.drawable.ic_news_feed);
             }else if(categoryTv.getText().toString().equals("")){
@@ -153,7 +154,7 @@ public class MultiViewRecAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             super(itemView);
             titleTv=(TextView)itemView.findViewById(R.id.faveTitleTv);
             categoryTv=(TextView)itemView.findViewById(R.id.faveCategory);
-            icImgView=(ImageView)itemView.findViewById(R.id.faveOnImgView);
+         //   icImgView=(ImageView)itemView.findViewById(R.id.faveOnImgView);
             mainImg=(ImageView)itemView.findViewById(R.id.faveImgView);
         }
 
@@ -161,8 +162,9 @@ public class MultiViewRecAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public void bind(Favorites object) {
             titleTv.setText(object.getFaveTitle());
             categoryTv.setText(object.getCategory());
-            Picasso.with(itemView.getContext()).load(object.getImgUrl()).fit().into(mainImg);
-            icImgView.setImageResource(object.getImgResId());
+            Picasso.with(itemView.getContext()).load(object.getImgResId()).fit()
+                    .centerInside().into(mainImg);
+           // icImgView.setImageResource(object.getImgResId());
         }
     }
 
