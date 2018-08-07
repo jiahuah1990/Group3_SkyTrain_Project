@@ -30,4 +30,5 @@ public class MapFragment extends Fragment {
 
         return fragment;
     }
+
 }

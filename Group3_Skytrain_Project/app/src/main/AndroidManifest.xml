@@ -10,7 +10,7 @@
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="false"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/luanch_icon"
         android:label="TransLink App"
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
